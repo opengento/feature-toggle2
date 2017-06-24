@@ -3,9 +3,25 @@
 ?>
 <?php
 /**
- * @see \Opengento\FeatureToggle2\Block\Adminhtml\System\Config\Toggles
+ * @var $block \Opengento\FeatureToggle2\Block\Adminhtml\System\Config\Toggles
  */
 ?>
+
+<?php $_toggles = $block->getToggles() ?>
+
 <div class="toggles">
     Here will be the list of toggles to switch.
+
+    <ul>
+        <?php foreach ($_toggles as $_toggleId => $_toggle): ?>
+            <li>
+                <ul>
+                    <li>ID : <?php echo $_toggleId ?></li>
+                    <li>Label : <?php echo $_toggle['label'] ?></li>
+                    <li>Description : <?php echo $_toggle['description'] ?></li>
+                    <li><input type="text" id="opengento_toggle_<?php echo $_toggleId ?>_percent" name="groups[toggle][fields][<?php echo $_toggleId ?>_percent][value]" value="<?php echo $block->getConfig($_toggleId, 'percent') ?>" /></li>
+                </ul>
+            </li>
+        <?php endforeach; ?>
+    </ul>
 </div>

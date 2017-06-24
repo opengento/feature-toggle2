@@ -2,14 +2,13 @@
 
 namespace Opengento\FeatureToggle2\Model\Config;
 
-use Magento\Framework\Config\Converter;
 use Magento\Framework\Config\FileResolverInterface;
 use Magento\Framework\Config\Reader\Filesystem;
-use Magento\Framework\Config\SchemaLocator;
 use Magento\Framework\Config\ValidationStateInterface;
 
 class Reader extends Filesystem
 {
+    protected $_idAttributes = ['/toggles/toggle' => 'id'];
 
     /**
      * @param FileResolverInterface $fileResolver
