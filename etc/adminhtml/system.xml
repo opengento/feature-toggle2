@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="opengento" translate="label" sortOrder="1">
+            <label>Opengento</label>
+        </tab>
+        <section id="opengento_featuretoggle2" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+            <label>Feature Toggles</label>
+            <tab>opengento</tab>
+            <resource>Opengento_FeatureToggle2::config</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Feature Toggles</label>
+                <field id="run" translate="label" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <frontend_model>Opengento\FeatureToggle2\Block\Adminhtml\System\Config\Toggles</frontend_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
