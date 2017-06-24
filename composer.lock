@@ -1,0 +1,75 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "acd5c369c0502eecd673ff7cd173cbc2",
+    "packages": [
+        {
+            "name": "qandidate/toggle",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/qandidate-labs/qandidate-toggle.git",
+                "reference": "178b412ec6777d7e5e38c3178d6219a3127696be"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/qandidate-labs/qandidate-toggle/zipball/178b412ec6777d7e5e38c3178d6219a3127696be",
+                "reference": "178b412ec6777d7e5e38c3178d6219a3127696be",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "predis/predis": "~0.8",
+                "symfony/expression-language": "~2.4"
+            },
+            "suggest": {
+                "predis/predis": "To use the PredisCollection to persist toggles in redis",
+                "symfony/expression-language": "To use the ExpressionCondition to add conditions as a symfony language expression"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Qandidate\\Toggle\\": "lib/Qandidate/Toggle/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alexander",
+                    "email": "iam.asm89@gmail.com"
+                },
+                {
+                    "name": "Qandidate.com",
+                    "homepage": "http://labs.qandidate.com/"
+                }
+            ],
+            "description": "Feature toggling for your PHP application.",
+            "keywords": [
+                "bits",
+                "feature",
+                "flip",
+                "flipping",
+                "switch",
+                "toggle",
+                "trigger"
+            ],
+            "time": "2016-05-03T20:15:12+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "dev",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}

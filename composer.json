@@ -1,0 +1,9 @@
+{
+    "name": "opengento/feature-toggle2",
+    "type": "magento2-module",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "require": {
+        "qandidate/toggle": "^1.0"
+    }
+}
