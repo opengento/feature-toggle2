@@ -1,0 +1,43 @@
+#row_opengento_featuretoggle2_general_run .label {
+    display: none;
+}
+
+#row_opengento_featuretoggle2_general_run .value {
+    width: 100%;
+}
+
+.toggles-title {
+    display: block;
+    margin: 0 0 10px;
+    font-weight: bold;
+    border-bottom: 1px solid currentColor;
+}
+
+.toggles-list,
+.toggles-sublist {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.toggles-item:not(:last-child) {
+    margin: 0 0 40px;
+}
+
+.toggles-container {
+    position: relative;
+    padding: 30px 0 0;
+}
+
+.toggles-id {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 5px;
+    font-size: 0.8em;
+    border: 1px solid currentColor;
+}
+
+.toggles-slider {
+    margin: 50px 0 0;
+}

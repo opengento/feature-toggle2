@@ -9,19 +9,68 @@
 
 <?php $_toggles = $block->getToggles() ?>
 
-<div class="toggles">
-    Here will be the list of toggles to switch.
+<script type="text/javascript">
+    require(['jquery', 'nouislider'], function($, noUiSlider) {
 
-    <ul>
+        $(document).ready(function () {
+            $('.my-lovely-slider').each(function (index, element) {
+                var elmt = jQuery(element);
+                noUiSlider.create(element, {
+                    start: [elmt.data('start')],
+                    connect: [true, false],
+                    tooltips: [true],
+                    step: 1,
+                    range: {
+                        'min': [0],
+                        'max': [100]
+                    },
+                    format: {
+                        to: function ( value ) {
+                            return value.toString() + '%';
+                        },
+                        from: function ( value ) {
+                            return value;
+                        }
+                    }
+                });
+
+                element.noUiSlider.on('update', function ( values, handle ) {
+                    var percent = parseInt(values[handle], 10);
+                    $('#' + elmt.data('input-id')).val(percent);
+                });
+            })
+        });
+    });
+</script>
+
+<div class="toggles">
+    <ul class="toggles-list">
         <?php foreach ($_toggles as $_toggleId => $_toggle): ?>
-            <li>
-                <ul>
-                    <li>ID : <?php echo $_toggleId ?></li>
-                    <li>Label : <?php echo $_toggle['label'] ?></li>
-                    <li>Description : <?php echo $_toggle['description'] ?></li>
-                    <li><input type="text" id="opengento_toggle_<?php echo $_toggleId ?>_percent" name="groups[toggle][fields][<?php echo $_toggleId ?>_percent][value]" value="<?php echo $block->getConfig($_toggleId, 'percent') ?>" /></li>
-                </ul>
+            <li class="toggles-item">
+                <strong class="toggles-title"><?php echo $block->escapeHtml($_toggle['label']); ?></strong>
+                <div class="toggles-container">
+                    <span class="toggles-id"><?php echo $block->escapeHtml($_toggleId); ?></span>
+                    <ul class="toggles-sublist">
+                        <li><?php echo $block->escapeHtml($_toggle['description']); ?></li>
+                        <li class="toggles-slider">
+                            <div
+                                class="my-lovely-slider"
+                                data-rangeslider
+                                data-orientation="horizontal"
+                                data-start="<?php echo (int) $block->getConfig($_toggleId, 'percent'); ?>"
+                                data-input-id="opengento_toggle_<?php echo $_toggleId; ?>_percent"
+                            ></div>
+                            <input
+                                id="opengento_toggle_<?php echo $_toggleId ?>_percent"
+                                name="groups[toggle][fields][<?php echo $_toggleId ?>_percent][value]"
+                                type="hidden"
+                                value="<?php echo (int) $block->getConfig($_toggleId, 'percent') ?>"
+                            />
+                        </li>
+                    </ul>
+                </div>
             </li>
         <?php endforeach; ?>
     </ul>
 </div>
+

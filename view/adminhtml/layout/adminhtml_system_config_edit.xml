@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../vendor/magento/framework/Module/etc/module.xsd">
+    <head>
+        <css src="Opengento_FeatureToggle2::js/nouislider.min.css" />
+        <css src="Opengento_FeatureToggle2::css/my-awesome-slider-styles.css" />
+    </head>
+</page>
