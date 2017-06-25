@@ -6,6 +6,7 @@
 
 namespace Opengento\FeatureToggle2\Helper;
 
+use Magento\Customer\Model\Session;
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Framework\App\Helper\Context;
 
@@ -71,13 +72,20 @@ class Toggle extends AbstractHelper
      */
     protected $cookieManager;
 
+    /**
+     * @var Session
+     */
+    protected $customerSession;
+
     public function __construct(
+        Session $customerSession,
         Reader $reader,
         CookieManager $cookieManager,
         QuandidateContext $quandidateContext,
         InMemoryCollection $inMemoryCollection,
         Context $context
     ) {
+        $this->customerSession      = $customerSession;
         $this->reader               = $reader;
         $this->cookieManager        = $cookieManager;
         $this->inMemoryCollection   = $inMemoryCollection;
@@ -131,7 +139,9 @@ class Toggle extends AbstractHelper
      */
     public function getAllActiveTogglesHash()
     {
-        if (null === $this->activeToggles) {
+        if ($activeToggles = $this->customerSession->getActiveToggles($this->activeToggles)) {
+            $this->activeToggles = $activeToggles;
+        } else {
             $toggles                = $this->getToggles();
             $this->activeToggles    = [];
 
@@ -140,6 +150,8 @@ class Toggle extends AbstractHelper
                     $this->activeToggles[] = md5($toggleId);
                 }
             }
+
+            $this->customerSession->setActiveToggles($this->activeToggles);
         }
 
         return count($this->activeToggles) ? '_' . implode('_', $this->activeToggles) : '';

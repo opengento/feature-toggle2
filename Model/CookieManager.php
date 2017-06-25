@@ -32,10 +32,10 @@ class CookieManager extends PhpCookieManager implements CookieManagerInterface
     /**
      *
      */
-    public function handleCustomerDataCookie()
+    public function setToggleCookie()
     {
         $customerData = json_encode($this->_getPublicCustomerData());
-        $this->setCookie('feature_toggle_data', $customerData, [PhpCookieManager::KEY_EXPIRE_TIME => time() + 86400*365*2]); // 2 years
+        $this->setCookie(self::COOKIE_NAME, $customerData, [PhpCookieManager::KEY_EXPIRE_TIME => time() + 86400*365*2]); // 2 years
     }
 
     /**

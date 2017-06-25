@@ -44,7 +44,7 @@ class ActionInterfacePlugin
         $response
     ) {
         if ($this->http->getHttpResponseCode() == 200) {
-            $this->cookieManager->handleCustomerDataCookie();
+            $this->cookieManager->setToggleCookie();
         }
 
         return $response;
