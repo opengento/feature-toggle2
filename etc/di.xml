@@ -1,0 +1,16 @@
+<!--
+/**
+ * Copyright © 2017 Opengento - All rights reserved.
+ * See LICENSE.md bundled with this module for license details.
+ */
+-->
+<config>
+    <type name="Magento\Framework\App\ActionInterface">
+        <plugin name="Opengento_FeatureToggle2_Cookie_Manager" type="\Opengento\FeatureToggle2\Plugin\ActionInterfacePlugin" sortOrder="1" />
+    </type>
+    <type name="Magento\Framework\View\Layout\Reader\Block">
+        <plugin name="Opengento_FeatureToggle2_Framework_View_Layout_Reader_Block" type="\Opengento\FeatureToggle2\Plugin\ViewLayoutReaderBlockPlugin" sortOrder="1" />
+    </type>
+
+    <preference for="\Magento\Framework\View\Layout" type="Opengento\FeatureToggle2\Model\Framework\View\Layout" />
+</config>

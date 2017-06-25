@@ -10,9 +10,10 @@ use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Framework\App\Helper\Context;
 
 use Opengento\FeatureToggle2\Model\Config\Reader;
+use Opengento\FeatureToggle2\Model\CookieManager;
 
 use Qandidate\Toggle\Context as QuandidateContext;
-use Qandidate\Toggle\Operator\LessThan;
+use Qandidate\Toggle\Operator\LessThanEqual;
 use Qandidate\Toggle\OperatorCondition;
 use Qandidate\Toggle\Toggle as QuandidateToggle;
 use Qandidate\Toggle\ToggleCollection\InMemoryCollection;
@@ -60,13 +61,25 @@ class Toggle extends AbstractHelper
      */
     protected $toggles;
 
+    /**
+     * @var array
+     */
+    protected $activeToggles;
+
+    /**
+     * @var CookieManager
+     */
+    protected $cookieManager;
+
     public function __construct(
         Reader $reader,
+        CookieManager $cookieManager,
         QuandidateContext $quandidateContext,
         InMemoryCollection $inMemoryCollection,
         Context $context
     ) {
         $this->reader               = $reader;
+        $this->cookieManager        = $cookieManager;
         $this->inMemoryCollection   = $inMemoryCollection;
         $this->toggleManager        = new ToggleManager($this->inMemoryCollection);
         $this->quandidateContext    = $quandidateContext;
@@ -80,18 +93,25 @@ class Toggle extends AbstractHelper
      */
     public function isToggleActive($toggleId)
     {
-        $this->lessThan             = new LessThan($this->scopeConfig->getValue('opengento_featuretoggle2/toggle/' . $toggleId . '_percent'));
-        $this->operatorCondition    = new OperatorCondition(
-            'percent', $this->lessThan
-        );
+        $this->lessThan             = new LessThanEqual($this->scopeConfig->getValue('opengento_featuretoggle2/toggle/' . $toggleId . '_percent'));
+        $this->operatorCondition    = new OperatorCondition('percent', $this->lessThan);
         $this->toggle               = new QuandidateToggle($toggleId, array($this->operatorCondition));
 
         // Add the toggle to the manager
         $this->toggleManager->add($this->toggle);
 
         $context = $this->quandidateContext;
-        $context->set('percent', 5);
+        $context->set('percent', $this->getUserValue('percent'));
         return $this->toggleManager->active($toggleId, $context);
+    }
+
+    /**
+     * @param $valueCode
+     * @return string
+     */
+    public function getUserValue($valueCode)
+    {
+        return $this->cookieManager->getUserValue($valueCode);
     }
 
     /**
@@ -104,6 +124,25 @@ class Toggle extends AbstractHelper
         }
 
         return $this->toggles;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAllActiveTogglesHash()
+    {
+        if (null === $this->activeToggles) {
+            $toggles                = $this->getToggles();
+            $this->activeToggles    = [];
+
+            foreach ($toggles as $toggleId => $toggle) {
+                if ($this->isToggleActive($toggleId)) {
+                    $this->activeToggles[] = md5($toggleId);
+                }
+            }
+        }
+
+        return count($this->activeToggles) ? '_' . implode('_', $this->activeToggles) : '';
     }
 }
 
